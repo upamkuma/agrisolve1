@@ -9,3 +9,5 @@ Currently, two official plugins are available:
 
 
 ......
+Hello This is an app on contract farming on Vite
+lakshit was here
