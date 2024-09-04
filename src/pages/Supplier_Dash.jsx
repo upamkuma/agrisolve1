@@ -1,14 +1,13 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react';
 import Slider from "react-slick";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import PropTypes from 'prop-types';
+import { MdLocationOn } from 'react-icons/md';
 function Supplier_Dash() {
-  // State for the selected quality
   const [selectedQuality, setSelectedQuality] = useState('Common');
+  const [selectedLocation, setSelectedLocation] = useState('');
 
-  // Temporary data for contracts
   const contracts = [
     { id: 1, name: 'Wheat', acquired: 50, total: 6000, acquiredQty: 3000, monthsLeft: 14, approved: 16, rejected: 8, pending: 15 },
     { id: 2, name: 'Paddy', acquired: 70, total: 4000, acquiredQty: 2800, monthsLeft: 10, approved: 20, rejected: 5, pending: 10 },
@@ -16,7 +15,6 @@ function Supplier_Dash() {
     { id: 4, name: 'Cotton', acquired: 60, total: 7000, acquiredQty: 4200, monthsLeft: 18, approved: 18, rejected: 6, pending: 12 },
   ];
 
-  // Slider settings
   const settings = {
     dots: false,
     infinite: false,
@@ -49,7 +47,6 @@ function Supplier_Dash() {
   return (
     <div className="bg-green-100 p-10 min-h-screen flex justify-center items-center">
       <div className="w-full max-w-6xl bg-white rounded-lg shadow-lg overflow-hidden">
-        {/* Applications Section */}
         <div className="p-8 bg-green-200 rounded-t-lg">
           <h2 className="text-2xl font-bold">Applications</h2>
           <div className="mt-4 p-6 bg-green-300 rounded-lg flex justify-between items-center">
@@ -65,7 +62,6 @@ function Supplier_Dash() {
           </div>
         </div>
 
-        {/* Contracts Section with Carousel */}
         <div className="p-8 bg-white">
           <h2 className="text-2xl font-bold">Your Contracts</h2>
           <div className="mt-4 pb-4">
@@ -93,10 +89,10 @@ function Supplier_Dash() {
           </div>
         </div>
 
-        {/* New Contract Section */}
         <div className="p-8 bg-green-200 rounded-b-lg">
           <h2 className="text-2xl font-bold">New Contract</h2>
           <div className="mt-4">
+            <h3 className="text-xl font-semibold mb-2">Choose Your Raw Item</h3>
             <select className="w-full p-4 border rounded text-lg">
               <option>Wheat</option>
               <option>Paddy</option>
@@ -104,6 +100,7 @@ function Supplier_Dash() {
               <option>Cotton</option>
             </select>
           </div>
+
 
           <div className="mt-6 flex space-x-4">
             <button
@@ -134,10 +131,17 @@ function Supplier_Dash() {
             <input className="w-full p-4 border rounded text-lg" type="text" placeholder="Min ₹2700 / Quintal" />
           </div>
 
-          <div className="mt-6 flex items-center">
-            <div className="text-black bg-gray-200 rounded px-6 py-3 text-lg">
-              📍 Aleja Pokoju
+          <div className="mt-6 relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <MdLocationOn className="w-5 h-5 text-gray-500" />
             </div>
+            <input
+              className="w-full pl-10 p-4 border rounded-full text-lg"
+              type="text"
+              placeholder="Enter Location"
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+            />
           </div>
 
           <div className="mt-6">
@@ -149,7 +153,6 @@ function Supplier_Dash() {
   );
 }
 
-//Next Arrow
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -161,16 +164,27 @@ function SampleNextArrow(props) {
   );
 }
 
-// Custom Previous Arrow
+SampleNextArrow.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
+};
+
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-      className={`${className} bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600`}
-      style={{ ...style, display: "block", left: "-25px", zIndex: 1 }}
-      onClick={onClick}
-    />
-  );
+    className={`${className} bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600`}
+    style={{ ...style, display: "block", left: "-25px", zIndex: 1 }}
+    onClick={onClick}
+  />
+);
 }
 
-export default Supplier_Dash
+SamplePrevArrow.propTypes = {
+className: PropTypes.string,
+style: PropTypes.object,
+onClick: PropTypes.func.isRequired,
+};
+
+export default Supplier_Dash;
