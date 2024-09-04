@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import PropTypes from 'prop-types';
 import { MdLocationOn } from 'react-icons/md';
+import YearMonthPicker from '../Components/Supplier_Dash/YearMonthPicker';
+
 function Supplier_Dash() {
   const [selectedQuality, setSelectedQuality] = useState('Common');
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -91,8 +93,10 @@ function Supplier_Dash() {
 
         <div className="p-8 bg-green-200 rounded-b-lg">
           <h2 className="text-2xl font-bold">New Contract</h2>
-          <div className="mt-4">
-            <h3 className="text-xl font-semibold mb-2">Choose Your Raw Item</h3>
+          
+          {/* Raw Material Selection */}
+          <div className="mt-4 flex items-center">
+            <h3 className="text-xl font-semibold w-40">Raw Material</h3>
             <select className="w-full p-4 border rounded text-lg">
               <option>Wheat</option>
               <option>Paddy</option>
@@ -101,47 +105,62 @@ function Supplier_Dash() {
             </select>
           </div>
 
-
-          <div className="mt-6 flex space-x-4">
-            <button
-              className={`px-6 py-3 rounded text-lg ${selectedQuality === 'High' ? 'bg-green-500 text-white' : 'bg-white border'}`}
-              onClick={() => setSelectedQuality('High')}
-            >
-              High
-            </button>
-            <button
-              className={`px-6 py-3 rounded text-lg ${selectedQuality === 'Common' ? 'bg-green-500 text-white' : 'bg-white border'}`}
-              onClick={() => setSelectedQuality('Common')}
-            >
-              Common
-            </button>
-            <button
-              className={`px-6 py-3 rounded text-lg ${selectedQuality === 'Budget' ? 'bg-green-500 text-white' : 'bg-white border'}`}
-              onClick={() => setSelectedQuality('Budget')}
-            >
-              Budget
-            </button>
+          {/* Quality Selection */}
+          <div className="mt-6 flex items-center">
+            <h3 className="text-xl font-semibold w-40">Quality</h3>
+            <div className="flex space-x-4">
+              <button
+                className={`px-6 py-3 rounded text-lg ${selectedQuality === 'High' ? 'bg-green-500 text-white' : 'bg-white border'}`}
+                onClick={() => setSelectedQuality('High')}
+              >
+                High
+              </button>
+              <button
+                className={`px-6 py-3 rounded text-lg ${selectedQuality === 'Common' ? 'bg-green-500 text-white' : 'bg-white border'}`}
+                onClick={() => setSelectedQuality('Common')}
+              >
+                Common
+              </button>
+              <button
+                className={`px-6 py-3 rounded text-lg ${selectedQuality === 'Budget' ? 'bg-green-500 text-white' : 'bg-white border'}`}
+                onClick={() => setSelectedQuality('Budget')}
+              >
+                Budget
+              </button>
+            </div>
           </div>
 
-          <div className="mt-6">
+          {/* Quantity Input */}
+          <div className="mt-6 flex items-center">
+            <h3 className="text-xl font-semibold w-40">Quantity</h3>
             <input className="w-full p-4 border rounded text-lg" type="text" placeholder="Min 100 Quintal" />
           </div>
 
-          <div className="mt-6">
+          {/* Price Input */}
+          <div className="mt-6 flex items-center">
+            <h3 className="text-xl font-semibold w-40">Price</h3>
             <input className="w-full p-4 border rounded text-lg" type="text" placeholder="Min ₹2700 / Quintal" />
           </div>
 
-          <div className="mt-6 relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <MdLocationOn className="w-5 h-5 text-gray-500" />
+          {/* Location Input */}
+          <div className="mt-6 flex items-center">
+            <h3 className="text-xl font-semibold w-40">Location</h3>
+            <div className="relative w-full">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MdLocationOn className="w-5 h-5 text-gray-500" />
+              </div>
+              <input
+                className="w-full pl-10 p-4 border rounded-full text-lg"
+                type="text"
+                placeholder="Enter Location"
+                value={selectedLocation}
+                onChange={(e) => setSelectedLocation(e.target.value)}
+              />
             </div>
-            <input
-              className="w-full pl-10 p-4 border rounded-full text-lg"
-              type="text"
-              placeholder="Enter Location"
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-            />
+          </div>
+          <div className="mt-6 flex items-center">
+            <h3 className="text-xl font-semibold w-40">Time</h3>
+            <YearMonthPicker/>
           </div>
 
           <div className="mt-6">
@@ -174,17 +193,17 @@ function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
     <div
-    className={`${className} bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600`}
-    style={{ ...style, display: "block", left: "-25px", zIndex: 1 }}
-    onClick={onClick}
-  />
-);
+      className={`${className} bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600`}
+      style={{ ...style, display: "block", left: "-25px", zIndex: 1 }}
+      onClick={onClick}
+    />
+  );
 }
 
 SamplePrevArrow.propTypes = {
-className: PropTypes.string,
-style: PropTypes.object,
-onClick: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  style: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Supplier_Dash;

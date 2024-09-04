@@ -8,7 +8,7 @@ const ContractCard = ({title,amount,month,year}) => {
         navigate('/apply')
     }
   return (
-    <div className='bg-[#508D4E] rounded-3xl w-[30vw]'>
+    <div className='bg-[#508D4E] rounded-3xl w-[30vw] shadow-lg hover:shadow-xl transform transition duration-300 ease-in-out hover:scale-105'>
             <div className='flex justify-between items-center px-5 pt-3  '>
                 <h1 className='text-black font-semibold text-2xl'>{title}</h1>
                 <span className='rounded-2xl bg-white text-green-500 px-5 text-gray-700 '>Contract</span>
