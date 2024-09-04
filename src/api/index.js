@@ -1,6 +1,19 @@
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
-const express=require('express')
+const express = require('express');
+const app = express();
+
+app.use(express.json());
+
+app.get('/test', function(req, res) {
+    res.json("test ok");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
 const cors=require('cors')
 const admin = require('firebase-admin')
 
@@ -12,16 +25,10 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-const app= express();
-
 app.use(cors({
     credentials: true,
     origin:"http://localhost:5173"
 }))
-app.use(express.json()
-app.get('/test', function(req, res){
-    res.json("test ok")
-})
 
 app.get('/getUserData', async (req, res) => {
     const uid = req.query.uid;
@@ -45,11 +52,3 @@ app.get('/getUserData', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch user data" });
     }
 });
-
-
-
-app.get('/test', function()=>{
-    
-})
-
-app.listen(4000)
