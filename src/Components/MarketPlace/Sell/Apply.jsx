@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 
 
-const Apply = () => {
+const Apply = ({productName,productDate,setIsApply}) => {
         const [count, setCount] = useState(50); // Default slider value
+        const[click1,setClick1] = useState(false)
+        const[click2,setClick2] = useState(false)
+        const[click3,setClick3] = useState(false)
         const handleSliderChange = (event) => {
                 setCount(event.target.value);
               }
@@ -12,10 +15,10 @@ const Apply = () => {
     <div className='bg-green-200 h-[100vh] flex justify-center items-center'>
         <div className='bg-green-600 h-[90vh] w-[30vw] rounded-3xl opacity-80'>
         <div className='flex justify-between items-center px-5 pt-3  '>
-                <h1 className='text-black font-bold text-5xl'>Wheat</h1>
-                <span className='rounded-2xl text-3xl bg-white text-green-500 px-5 text-gray-700 '>Contract</span>
+                <h1 className='text-black font-bold text-5xl'>{productName}</h1>
+                <button className='rounded-2xl text-3xl bg-white text-green-500 px-5 text-gray-700 ' onClick={()=>setIsApply(false)}>Contract</button>
         </div>
-        <div className='text-xl font-medium ml-6 mt-2 '> By 26 JULY</div>        
+        <div className='text-xl font-medium ml-6 mt-2 '>{productDate}</div>        
         <div className='text-xl font-medium ml-6  flex items-center '> From xyz Corporation  (4.5)⭐ </div>        
         <div className='flex justify-between items-center px-5 pt-3  '>
                 <h1 className='text-black font-bold text-5xl'>Quantity</h1>              
@@ -50,15 +53,15 @@ const Apply = () => {
                 <h1 className='text-black font-bold text-4xl'>Mode of Payment</h1>              
         </div>
         <div className='flex justify-evenly mt-5'>
-            <div className=' bg-white  rounded-2xl  p-2 items-center text-bold text-2xl flex cursor-pointer hover:bg-slate-700'>
+            <button onClick={()=>setClick1(true)} className={`${click1?'bg-slate-500':'bg-white'}   rounded-2xl  p-2 items-center text-bold text-2xl flex cursor-pointer hover:bg-blue-500`}>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M3 13H6V21H4C3.73478 21 3.48043 21.1053 3.29289 21.2929C3.10536 21.4804 3 21.7348 3 22C3 22.2652 3.10536 22.5196 3.29289 22.7071C3.48043 22.8946 3.73478 23 4 23H28C28.2652 23 28.5196 22.8946 28.7071 22.7071C28.8946 22.5196 29 22.2652 29 22C29 21.7348 28.8946 21.4804 28.7071 21.2929C28.5196 21.1053 28.2652 21 28 21H26V13H29C29.2176 12.9998 29.4292 12.9286 29.6026 12.7973C29.7761 12.6659 29.902 12.4816 29.9612 12.2722C30.0205 12.0629 30.0098 11.8399 29.9308 11.6371C29.8519 11.4344 29.709 11.2629 29.5238 11.1487L16.5238 3.14874C16.3662 3.05189 16.1849 3.00061 16 3.00061C15.8151 3.00061 15.6338 3.05189 15.4762 3.14874L2.47625 11.1487C2.29103 11.2629 2.14811 11.4344 2.06916 11.6371C1.99021 11.8399 1.97955 12.0629 2.03878 12.2722C2.09801 12.4816 2.22391 12.6659 2.39738 12.7973C2.57085 12.9286 2.78242 12.9998 3 13ZM8 13H12V21H8V13ZM18 13V21H14V13H18ZM24 21H20V13H24V21ZM16 5.17374L25.4675 11H6.5325L16 5.17374ZM31 26C31 26.2652 30.8946 26.5196 30.7071 26.7071C30.5196 26.8946 30.2652 27 30 27H2C1.73478 27 1.48043 26.8946 1.29289 26.7071C1.10536 26.5196 1 26.2652 1 26C1 25.7348 1.10536 25.4804 1.29289 25.2929C1.48043 25.1053 1.73478 25 2 25H30C30.2652 25 30.5196 25.1053 30.7071 25.2929C30.8946 25.4804 31 25.7348 31 26Z" fill="#1A5319"/>
 </svg>
             NET BANKING
-            </div>
+            </button>
             <br/>
         
-            <div className='bg-white rounded-2xl  p-2 items-center text-bold text-2xl flex cursor-pointer hover:bg-slate-700'>
+            <button onClick={()=>setClick2(true)} className={`${click2?'bg-slate-500':'bg-white'} rounded-2xl  p-2 items-center text-bold text-2xl flex cursor-pointer hover:bg-blue-500`}>
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M25 10.5182C25 10.7621 24.9064 10.9961 24.7397 11.1685C24.573 11.341 24.3469 11.4379 24.1111 11.4379H20.5389C20.5489 11.5897 20.5556 11.7426 20.5556 11.8978C20.5535 13.7265 19.8505 15.4798 18.6007 16.7729C17.3509 18.066 15.6564 18.7934 13.8889 18.7955H12.1878L20.2644 26.3923C20.3524 26.4731 20.4241 26.5711 20.4752 26.6807C20.5263 26.7903 20.5558 26.9094 20.5622 27.0309C20.5685 27.1524 20.5514 27.274 20.512 27.3887C20.4725 27.5034 20.4115 27.6088 20.3324 27.6988C20.2533 27.7889 20.1577 27.8618 20.0511 27.9134C19.9446 27.965 19.8292 27.9941 19.7117 27.9992C19.5941 28.0043 19.4768 27.9852 19.3665 27.943C19.2561 27.9008 19.155 27.8364 19.0689 27.7535L9.29111 18.5564C9.15835 18.4316 9.06521 18.2681 9.02394 18.0874C8.98266 17.9068 8.99519 17.7174 9.05987 17.5443C9.12454 17.3711 9.23835 17.2223 9.38631 17.1173C9.53428 17.0124 9.70948 16.9562 9.88889 16.9561H13.8889C15.1851 16.9546 16.4277 16.4212 17.3442 15.4729C18.2608 14.5246 18.7763 13.2389 18.7778 11.8978C18.7778 11.7426 18.77 11.5897 18.7567 11.4379H9.88889C9.65314 11.4379 9.42705 11.341 9.26035 11.1685C9.09365 10.9961 9 10.7621 9 10.5182C9 10.2743 9.09365 10.0404 9.26035 9.86789C9.42705 9.69541 9.65314 9.59852 9.88889 9.59852H18.2411C17.8317 8.76844 17.2086 8.07151 16.4406 7.58464C15.6726 7.09777 14.7896 6.83987 13.8889 6.83941H9.88889C9.65314 6.83941 9.42705 6.74251 9.26035 6.57003C9.09365 6.39755 9 6.16362 9 5.9197C9 5.67578 9.09365 5.44185 9.26035 5.26938C9.42705 5.0969 9.65314 5 9.88889 5H24.1111C24.3469 5 24.573 5.0969 24.7397 5.26938C24.9064 5.44185 25 5.67578 25 5.9197C25 6.16362 24.9064 6.39755 24.7397 6.57003C24.573 6.74251 24.3469 6.83941 24.1111 6.83941H18.4156C19.2085 7.59855 19.8116 8.5453 20.1733 9.59852H24.1111C24.3469 9.59852 24.573 9.69541 24.7397 9.86789C24.9064 10.0404 25 10.2743 25 10.5182Z" fill="#1A5319"/>
 </svg>
@@ -66,9 +69,9 @@ const Apply = () => {
             UPI
            
 
-            </div>
+            </button>
             <br/>
-            <div className='bg-white rounded-2xl  p-2 items-center text-bold text-2xl flex cursor-pointer hover:bg-slate-700'>
+            <button onClick={()=>setClick3(true)} className={`${click3?'bg-slate-500':'bg-white'} rounded-2xl  p-2 items-center text-bold text-2xl flex cursor-pointer hover:bg-blue-500`}>
             <svg width="51" height="49" viewBox="0 0 51 49" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8.67648 12.3751C9.13211 10.7413 10.8799 9.77181 12.5804 10.2096L47.4744 19.1927C49.1748 19.6305 50.1839 21.3098 49.7283 22.9435L45.3284 38.7203C44.8728 40.3541 43.1249 41.3236 41.4245 40.8858L6.53046 31.9026C4.83003 31.4649 3.82093 29.7856 4.27656 28.1519L8.67648 12.3751Z" fill="#021024" fill-opacity="0.1"/>
 <path d="M8.95147 11.389C9.25523 10.2999 10.4204 9.65351 11.5541 9.94535L46.4481 18.9285C47.5817 19.2204 48.2545 20.3399 47.9507 21.4291L43.5508 37.2058C43.2471 38.295 42.0818 38.9414 40.9482 38.6495L6.05415 29.6663C4.92054 29.3745 4.2478 28.255 4.55155 27.1658L8.95147 11.389Z" fill="#78D3A9"/>
@@ -135,9 +138,9 @@ const Apply = () => {
 </svg>
 
             CASH
+</button>
 </div>
-</div>
-        <button className='flex w-72 font-bold justify-center bg-white rounded-3xl text-3xl mt-10 mx-auto p-3 hover:bg-slate-500'>
+        <button onClick={()=>setIsApply(false)} className='flex w-72 font-bold justify-center bg-white rounded-3xl text-3xl mt-10 mx-auto p-3 hover:bg-green-400 hover:shadow-xl transform transition duration-300 ease-in-out hover:scale-105'>
         Apply
         </button>
         </div>

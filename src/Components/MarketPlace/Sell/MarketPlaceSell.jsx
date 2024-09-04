@@ -5,6 +5,7 @@ import { IoCartOutline } from "react-icons/io5";
 import { PiHandCoins } from "react-icons/pi";
 import { Line } from 'react-chartjs-2';
 import ContractCard from "./contractcard";
+import Apply from './Apply';
 
 // Setting default options for Chart.js
 defaults.maintainAspectRatio = true;
@@ -16,7 +17,9 @@ defaults.plugins.title.color = "black";
 
 const MarketPlaceSell = () => {
   const [activeTab, setActiveTab] = useState('buy'); // State to manage active tab
-                                  
+  const [isApply,setIsApply]=useState(false)             
+  const [productName,setProductName]=useState(null)             
+  const [productDate,setProductDate]=useState(null)             
 
   // Gradient background setup for the line chart
   const gradientBackground = (canvas) => {
@@ -28,11 +31,11 @@ const MarketPlaceSell = () => {
     return gradient;
   };
 
-  return (
-    <div className='bg-[#E4F5E4] min-h-screen'> 
-      
 
-     
+  return (
+    <>
+    {isApply==false ? 
+      <div className='bg-[#E4F5E4] min-h-screen'> 
       {activeTab === 'buy' ? (
         <div>
             <div className="text-5xl  font-bold text-[#1A5319] py-3 px-3  ">
@@ -129,15 +132,9 @@ const MarketPlaceSell = () => {
                     Contracts
             </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 gap-x-0 mt-10 ml-8 bg-[#E4F5E4]">
-            <ContractCard title={"Wheat"} amount={2000} month={"October"} year={2024} />
-            <ContractCard title={"Rice"} amount={2500} month={"June"} year={2024} />
-            <ContractCard title={"Cotton"} amount={2700} month={"July"} year={2024} />
-            <ContractCard title={"Mango"} amount={3000} month={"March"} year={2024} />
-            <ContractCard title={"Jute"} amount={2143} month={"January"} year={2024} />
-            <ContractCard title={"Onion"} amount={2456} month={"July"} year={2024} />
-            <ContractCard title={"Potato"} amount={1978} month={"April"} year={2024} />
-            <ContractCard title={"Sugarcane"} amount={4652} month={"May"} year={2024} />
-            <ContractCard title={"Corn"} amount={3562} month={"August"} year={2024} />
+            <ContractCard setIsApply={setIsApply} isApply={isApply} productName={productName}
+            setProductName={setProductName} productDate={productDate} setProductDate={setProductDate}
+            />
           </div>
         </div>
       ) : (
@@ -149,6 +146,12 @@ const MarketPlaceSell = () => {
         </div>
       )}
     </div>
+     :
+    <>
+
+      <Apply productDate={productDate} productName={productName} setIsApply={setIsApply}/>
+    </>}
+    </>
   );
 };
 

@@ -24,7 +24,7 @@ function App() {
         <Route path='/community' element={<Community />} />
         {/* <Route path='/profile' element={<Profile/>} /> */}
         <Route path= '/signin' element={<SignIn/>} />
-        <Route path= '/apply' element={<Apply/>} />
+        {/* <Route path= '/apply' element={<Apply/>} /> */}
         {/* <Route path= '/chatbot' element={<Chatbot/>} /> */}
         <Route path= '/supplier_dashboard' element={<Supplier_Dash/>} />
 

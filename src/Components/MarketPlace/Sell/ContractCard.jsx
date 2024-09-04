@@ -1,34 +1,50 @@
 
-import { FaLocationDot } from 'react-icons/fa6'
-import {  useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import Card from './Card'
 
-const ContractCard = ({title,amount,month,year}) => {
-    const navigate=useNavigate()
-    const handleOnClick = ()=>{
-        navigate('/apply')
-    }
+const ContractCard = ({setIsApply,isApply,productName,setProductName,productDate,setProductDate}) => {
+   
+    const [Title, setTitle] = useState(null)
+    const [Amount, setAmount] = useState(null)
+    const [Date, setDate] = useState(null)
+    const[Location, setLocation] = useState(null)
+    const [Data, setData] = useState([])
+    useEffect(()=>{
+        try {
+            const fetch=async()=>{
+                const response=await axios.get('/contracts')
+                const data=response.data
+                setData(data)
+                data.map(data=>{
+                    setTitle(data.product)
+                    setAmount(data.price)
+                    setDate(data.date)
+                    setLocation(data.location)
+                  
+                })                
+            }
+            fetch()
+         
+        } catch (error) {
+            console.error(error)
+        }
+    },[])
+    console.log(Data[0])
+    
+
   return (
-    <div className='bg-[#508D4E] rounded-3xl w-[30vw] shadow-lg hover:shadow-xl transform transition duration-300 ease-in-out hover:scale-105'>
-            <div className='flex justify-between items-center px-5 pt-3  '>
-                <h1 className='text-black font-semibold text-2xl'>{title}</h1>
-                <span className='rounded-2xl bg-white text-green-500 px-5 text-gray-700 '>Contract</span>
-            </div>        
-            <div className='ml-5 text-gray-700 flex items-center'>
-                By {month} {year}
-            </div>
-            <div className='text-white text-3xl flex items-center justify-center font-bold'>
-                    <h1>₹{amount}/ QUINTOL</h1>
-            </div>
-            <div className='flex items-start justify-between p-5 pb-3'>
-            <h1 className='text-black font-semibold text-xl flex items-center'>
-            <FaLocationDot/>
-                India</h1>
-            <button  onClick={handleOnClick}
-            className='rounded-2xl bg-white text-green-500 px-5 text-gray-700 hover:bg-green-950' >Apply</button>
-
-            </div>
-            
-        </div>
+    <>
+        
+        {Data.map(data=>{
+                return(
+                    <Card  key={data.date} Title={data.product} Amount={data.price} Date={data.date} Location={data.location}
+                    setIsApply={setIsApply} apply={isApply} setProductDate={setProductDate} productDate={setProductDate} setProductName={setProductName} productName={setProductName}                   
+                    />
+                )
+            })}
+        </>
+        
   )
 }
 
