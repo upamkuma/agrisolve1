@@ -55,6 +55,8 @@ app.get('/getUserData', async (req, res) => {
 
 
 
-app.get
+app.get('/test', function()=>{
+    
+})
 
 app.listen(4000)
