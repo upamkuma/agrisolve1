@@ -110,5 +110,56 @@ app.post('/createContract', async(req,res) => {
     }
 })
 
+app.post('/applyContract', async(req, res) => {
+    const {
+        contractID,
+        farmerID,
+        mop,
+        proposedPrice, 
+        proposedQuantity
+    } = req.body;
 
+    try{
+        const contractRef = db.collection('contracts').doc(contractID);
+        const contractSnap = await contractRef.get();
+        
+        if (!contractSnap.exists) {
+            return res.status(404).json({ error: 'Contract not found' });
+        }
+
+        const { buyerID } = contractSnap.data();
+
+        const newApplicationRef = db.collection('applications').doc();
+
+        const applicationData = {
+            contractID,
+            farmerID,
+            mop,
+            proposedPrice: Number(proposedPrice),
+            proposedQuantity: Number(proposedQuantity),
+            status: "pending"
+        };
+
+        await newApplicationRef.set(applicationData);
+
+        await contractRef.update({
+            pending_application: admin.firestore.FieldValue.arrayUnion(newApplicationRef.id),
+        });
+
+        const farmerRef = db.collection('users').doc(farmerID);
+        await farmerRef.update({
+            pending_contract: admin.firestore.FieldValue.arrayUnion(contractID),
+        });
+
+        const buyerRef = db.collection('users').doc(buyerID);
+        await buyerRef.update({
+            pending_application: admin.firestore.FieldValue.arrayUnion(newApplicationRef.id),
+        });
+
+        res.status(200).json({ message: 'Application submitted successfully', applicationID: newApplicationRef.id });
+    } catch (error) {
+        console.error('Error submitting application:', error);
+        res.status(500).json({ error: 'Failed to submit application' });
+    }
+})
 app.listen(4000)
