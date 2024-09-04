@@ -67,3 +67,42 @@ app.get('/getUserData', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch user data" });
     }
 });
+
+app.post('/createContract', async(req,res) => {
+    const {
+        product,
+        quality,
+        required_quantity,
+        price,
+        location,
+        date,
+        buyerID
+    } = req.body;
+
+    try {
+        const newContractRef = db.collection('contracts').doc();
+
+        const contractData = {
+            approved_application: [],
+            approved_quantity: 0,
+            buyerID: buyerID,
+            date: date,
+            location: location,
+            price: Number(price),
+            product: product,
+            quality: quality,
+            required_quantity: Number(required_quantity),
+            status: "open",
+        };
+
+        await newContractRef.set(contractData);
+
+        res.status(200).json({message: 'Contract created successfully', contractId: newContractRef.id})
+    } catch (error) {
+        console.error('Error creating contract:', error);
+        res.status(500).json({ error: 'Failed to create contract' });
+    }
+})
+
+
+app.listen(4000)
