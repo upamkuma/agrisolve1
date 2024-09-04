@@ -26,7 +26,7 @@ const SignIn = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       console.log('Google sign-in successful');
-      navigate('/marketplace');
+      navigate('/supplier_dashboard');
     } catch (error) {
       console.error('Error with Google sign-in:', error);
     }
