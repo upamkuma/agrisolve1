@@ -46,7 +46,7 @@ import Supplier_Dash from './pages/Supplier_Dash';
 import Apply from './Components/MarketPlace/Sell/Apply';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.withCredentials = true;
 
 function App() {

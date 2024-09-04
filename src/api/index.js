@@ -72,7 +72,7 @@ app.post('/createContract', async(req,res) => {
     const {
         product,
         quality,
-        required_quantity,
+        required_quancreateContracttity,
         price,
         location,
         date,
@@ -105,4 +105,4 @@ app.post('/createContract', async(req,res) => {
 })
 
 
-app.listen(4000)
+
