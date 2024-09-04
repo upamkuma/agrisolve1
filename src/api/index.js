@@ -19,7 +19,7 @@ app.use(cors({
     origin:"http://localhost:5173"
 }))
 app.use(express.json())
-app.get('/test', async(req, res) => {
+app.get('/contracts', async(req, res) => {
     try{
         const contractsSnapshot = await db.collection('contracts').get();
         const contracts = contractsSnapshot.docs.map(doc => doc.data());
@@ -29,4 +29,30 @@ app.get('/test', async(req, res) => {
         res.status(500).json({error: "Failed to fetch contracts"});
     }
 })
+
+app.get('/getUserData', async (req, res) => {
+    const uid = req.query.uid;
+
+    if (!uid) {
+        return res.status(400).json({ error: 'UID is required' });
+    }
+
+    try {
+        const userDoc = await db.collection('users').doc(uid).get();
+        if (!userDoc.exists) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const userData = userDoc.data();
+        const { name, email, type } = userData;
+
+        res.json({ name, email, type });
+    } catch (error) {
+        console.error("Error fetching user data:", error);
+        res.status(500).json({ error: "Failed to fetch user data" });
+    }
+});
+
+app.get
+
 app.listen(4000)
