@@ -8,7 +8,7 @@ const Header = () => {
     <header className="flex justify-between items-center p-4">
       <Logo />
       <Navigation />
-      <Button color="yellow" to="/supplier_dashboard">Join Company</Button>
+      <Button color="yellow" to="/supplier_dashboard">Sign in</Button>
     </header>
   );
 };
