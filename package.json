@@ -19,6 +19,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "firebase": "^10.13.1",
+    "firebase-admin": "^12.4.0",
     "my-project": "file:",
     "nodemon": "^3.1.4",
     "react": "^18.3.1",
