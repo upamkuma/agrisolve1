@@ -37,7 +37,12 @@ app.get('/test', function(req, res){
 app.get('/contracts', async (req, res) => {
     try {
         const contractsSnapshot = await db.collection('contracts').get();
-        const contracts = contractsSnapshot.docs.map(doc => doc.data());
+        const contracts = contractsSnapshot.docs.map(doc => {
+            const contractId = doc.id;
+            const contractData = doc.data();  
+            return { id: contractId, ...contractData };
+        });
+        
         res.json(contracts);
     } catch (error) {
         console.error("Error fetching contracts:", error);
@@ -88,6 +93,7 @@ app.post('/createContract', async(req,res) => {
             buyerID: buyerID,
             date: date,
             location: location,
+            pending_application: [],
             price: Number(price),
             product: product,
             quality: quality,
