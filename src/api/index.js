@@ -4,7 +4,7 @@ const express=require('express')
 const cors=require('cors')
 const admin = require('firebase-admin')
 
-const serviceAccount = require('./agrisolve-7-firebase-adminsdk-n2sgb-da9e5cd090.json')
+const serviceAccount = require('./agrisolve-7-firebase-adminsdk-n2sgb-8a495791fa.json')
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -55,8 +55,8 @@ app.get('/getUserData', async (req, res) => {
 
 
 
-app.get('/test', function()=>{
+// app.get('/test', function()=>{
     
-})
+// })
 
 app.listen(4000)
