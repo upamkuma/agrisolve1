@@ -12,6 +12,7 @@ export default {
         'dark-green': '#508D4E',
         'darker-green': '#1A5319',
       },
+      
       container: {
         center: true,
         padding:"15px",
