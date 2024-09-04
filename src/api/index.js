@@ -18,16 +18,9 @@ app.use(cors({
     credentials: true,
     origin:"http://localhost:5173"
 }))
-app.use(express.json())
-app.get('/contracts', async(req, res) => {
-    try{
-        const contractsSnapshot = await db.collection('contracts').get();
-        const contracts = contractsSnapshot.docs.map(doc => doc.data());
-        res.json(contracts); 
-    } catch (error){
-        console.error("Error fetching contracts:", error);
-        res.status(500).json({error: "Failed to fetch contracts"});
-    }
+app.use(express.json()
+app.get('/test', function(req, res){
+    res.json("test ok")
 })
 
 app.get('/getUserData', async (req, res) => {
