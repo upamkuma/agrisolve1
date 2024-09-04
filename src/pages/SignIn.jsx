@@ -1,22 +1,20 @@
 // import React, { useState } from 'react';
-// import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaGoogle } from 'react-icons/fa';
 // import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-// import { auth, googleProvider } from '../firebase-config.js'; // Updated import
+// import { auth, googleProvider } from '../firebase-config';
 // import { useNavigate } from 'react-router-dom';
 
 // const SignIn = () => {
 //   const [email, setEmail] = useState('');
 //   const [password, setPassword] = useState('');
 //   const [showPassword, setShowPassword] = useState(false);
-//   const [rememberMe, setRememberMe] = useState(false);
 //   const navigate = useNavigate();
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       await signInWithEmailAndPassword(auth, email, password);
-//       console.log('Sign-in successful');
-//       navigate('/marketplace');
+//       const userCredential = await signInWithEmailAndPassword(auth, email, password);
+//       const uid = userCredential.user.uid;
+//       redirectToUserPage(uid);
 //     } catch (error) {
 //       console.error('Error signing in:', error);
 //     }
@@ -24,11 +22,29 @@
 
 //   const handleGoogleSignIn = async () => {
 //     try {
-//       await signInWithPopup(auth, googleProvider);
-//       console.log('Google sign-in successful');
-//       navigate('/supplier_dashboard');
+//       const result = await signInWithPopup(auth, googleProvider);
+//       const uid = result.user.uid;
+//       redirectToUserPage(uid);
 //     } catch (error) {
 //       console.error('Error with Google sign-in:', error);
+//     }
+//   };
+
+//   const redirectToUserPage = async (uid) => {
+//     try {
+//       const response = await fetch(`http://localhost:3000/getUserData?uid=${uid}`);
+//       const data = await response.json();
+
+//       if (data.type === 'buyer') {
+//         navigate('/Supplier_Dashboard');
+//       } else if (data.type === 'farmer') {
+//         navigate('/Marketplace');
+//       } else {
+//         navigate('/');
+//         console.error('Unknown user type:', data.type);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching user data:', error);
 //     }
 //   };
 
@@ -49,7 +65,6 @@
 //                 placeholder="youremail@example.com"
 //                 required
 //               />
-//               <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 //             </div>
 //           </div>
 //           <div className="mb-6">
@@ -63,27 +78,14 @@
 //                 onChange={(e) => setPassword(e.target.value)}
 //                 required
 //               />
-//               <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
 //               <button
 //                 type="button"
 //                 onClick={() => setShowPassword(!showPassword)}
 //                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
 //               >
-//                 {showPassword ? <FaEyeSlash /> : <FaEye />}
+//                 {showPassword ? 'Hide' : 'Show'}
 //               </button>
 //             </div>
-//           </div>
-//           <div className="flex justify-between items-center mb-6">
-//             <label className="flex items-center">
-//               <input
-//                 type="checkbox"
-//                 className="form-checkbox text-green-700"
-//                 checked={rememberMe}
-//                 onChange={() => setRememberMe(!rememberMe)}
-//               />
-//               <span className="ml-2 text-gray-700">Remember For 30 Days</span>
-//             </label>
-//             <a href="#" className="text-green-700 hover:underline">Forgot Password</a>
 //           </div>
 //           <button
 //             type="submit"
@@ -103,7 +105,6 @@
 //           onClick={handleGoogleSignIn}
 //           className="w-full border border-gray-300 p-3 rounded-full flex items-center justify-center hover:bg-gray-50 transition duration-300"
 //         >
-//           <FaGoogle className="text-green-700 mr-2" />
 //           Sign In With Google
 //         </button>
 //       </div>
@@ -117,7 +118,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../firebase-config';
 import { useNavigate } from 'react-router-dom';
 
-const SignIn = () => {
+const SignIn = ({ setUid }) => { // Accept setUid as a prop
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -128,6 +129,7 @@ const SignIn = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
+      setUid(uid); // Store uid in App component state
       redirectToUserPage(uid);
     } catch (error) {
       console.error('Error signing in:', error);
@@ -138,6 +140,7 @@ const SignIn = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const uid = result.user.uid;
+      setUid(uid); // Store uid in App component state
       redirectToUserPage(uid);
     } catch (error) {
       console.error('Error with Google sign-in:', error);
@@ -150,9 +153,9 @@ const SignIn = () => {
       const data = await response.json();
 
       if (data.type === 'buyer') {
-        navigate('/Supplier_Dashboard');
+        navigate('/supplier_dashboard');
       } else if (data.type === 'farmer') {
-        navigate('/Marketplace');
+        navigate('/marketplace');
       } else {
         navigate('/');
         console.error('Unknown user type:', data.type);
@@ -167,6 +170,7 @@ const SignIn = () => {
       <div className="bg-white p-8 rounded-3xl shadow-lg max-w-md mx-auto">
         <h1 className="text-3xl font-bold mb-6">Sign In To Your Account.</h1>
         <form onSubmit={handleSubmit}>
+          {/* Sign In Form */}
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 mb-2">Email Address</label>
             <div className="relative">
