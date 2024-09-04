@@ -67,14 +67,3 @@ app.get('/getUserData', async (req, res) => {
         res.status(500).json({ error: "Failed to fetch user data" });
     }
 });
-<<<<<<< HEAD
-=======
-
-
-
-// app.get('/test', function()=>{
-    
-// })
-
-app.listen(4000)
->>>>>>> ef966726a50cbcb00150fcaa29e9f03feb5e8140
