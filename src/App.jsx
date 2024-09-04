@@ -10,10 +10,6 @@ import SignIn from './pages/SignIn';
 // import Chatbot from './Components/Chatbot';
 import Supplier_Dash from './pages/Supplier_Dash';
 
-
-
-
-
 function App() {
   return (
     <BrowserRouter>
